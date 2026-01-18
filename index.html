@@ -38,7 +38,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
+            gap: 40px;
             margin-bottom: 20px;
         }
         
@@ -47,39 +47,46 @@
             position: relative;
         }
         
-        .logo-decorative {
-            color: #c9a961;
-            font-size: 2.5em;
-            margin-bottom: -10px;
+        .logo-decorative-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 5px;
         }
         
-        .decorative-swirl {
+        .leaf-icon {
             color: #c9a961;
-            font-size: 3em;
-            letter-spacing: -5px;
+            font-size: 2em;
+        }
+        
+        .swirl-pattern {
+            color: #c9a961;
+            font-size: 2.5em;
+            line-height: 1;
+            letter-spacing: -8px;
         }
         
         .logo-main {
             font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
-            font-size: 3.5em;
+            font-size: 4em;
             color: #2c2c2c;
             font-weight: bold;
             font-style: italic;
-            line-height: 0.9;
-            margin: 10px 0;
+            line-height: 1;
+            margin: 5px 0;
         }
         
         .logo-subtitle {
             color: #c9a961;
-            font-size: 1.3em;
-            letter-spacing: 8px;
+            font-size: 1.4em;
+            letter-spacing: 10px;
             font-weight: normal;
             margin-top: 5px;
         }
         
-        .sheep-icon {
-            font-size: 5em;
-            filter: grayscale(100%);
+        .sheep-logo {
+            width: 120px;
+            height: auto;
         }
         
         .title {
@@ -275,6 +282,10 @@
                 gap: 10px;
             }
             
+            .sheep-logo {
+                width: 80px;
+            }
+            
             .form-group {
                 flex-direction: column;
                 align-items: flex-start;
@@ -305,12 +316,38 @@
         <div class="header">
             <div class="logo-container">
                 <div class="logo-text">
-                    <div class="logo-decorative">🌿</div>
-                    <div class="decorative-swirl">〰〰〰〰〰〰</div>
+                    <div class="logo-decorative-top">
+                        <span class="leaf-icon">🌿</span>
+                    </div>
+                    <div class="swirl-pattern">◠◡◠◡◠◡◠</div>
                     <div class="logo-main">Mouton Noir</div>
                     <div class="logo-subtitle">WINE GROUP</div>
                 </div>
-                <div class="sheep-icon">🐑🍷</div>
+                <svg class="sheep-logo" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Sheep body -->
+                    <ellipse cx="50" cy="60" rx="25" ry="30" fill="#2c2c2c"/>
+                    <!-- Sheep head -->
+                    <circle cx="50" cy="35" r="15" fill="#2c2c2c"/>
+                    <!-- Ears -->
+                    <ellipse cx="42" cy="28" rx="4" ry="8" fill="#2c2c2c"/>
+                    <ellipse cx="58" cy="28" rx="4" ry="8" fill="#2c2c2c"/>
+                    <!-- Eyes -->
+                    <circle cx="45" cy="35" r="2" fill="white"/>
+                    <circle cx="55" cy="35" r="2" fill="white"/>
+                    <!-- Legs -->
+                    <rect x="38" y="85" width="5" height="20" fill="#2c2c2c"/>
+                    <rect x="57" y="85" width="5" height="20" fill="#2c2c2c"/>
+                    <!-- Wine glass in left hand -->
+                    <path d="M 25 50 L 28 60 L 22 60 Z" fill="none" stroke="#2c2c2c" stroke-width="2"/>
+                    <line x1="25" y1="60" x2="25" y2="70" stroke="#2c2c2c" stroke-width="2"/>
+                    <line x1="22" y1="70" x2="28" y2="70" stroke="#2c2c2c" stroke-width="2"/>
+                    <!-- Bottle in right hand -->
+                    <rect x="70" y="45" width="8" height="20" fill="none" stroke="#2c2c2c" stroke-width="2"/>
+                    <rect x="71" y="42" width="6" height="5" fill="none" stroke="#2c2c2c" stroke-width="2"/>
+                    <!-- Arms -->
+                    <line x1="30" y1="55" x2="25" y2="50" stroke="#2c2c2c" stroke-width="3"/>
+                    <line x1="70" y1="55" x2="74" y2="50" stroke="#2c2c2c" stroke-width="3"/>
+                </svg>
             </div>
             <div class="title">WINE TASTING ORDER FORM</div>
         </div>
@@ -526,37 +563,30 @@
                 return;
             }
             
-            // Create message for phone contact
-            let message = `WINE ORDER - ${formData.location}\n`;
-            message += `Date: ${formData.date}\n\n`;
-            message += `Customer: ${formData.name}\n`;
-            message += `Phone: ${formData.phone}\n`;
-            message += `Email: ${formData.email}\n`;
-            message += `Address: ${formData.address}\n`;
-            if (formData.addressDesc) message += `Description: ${formData.addressDesc}\n`;
-            message += `Town: ${formData.town}\n`;
-            if (formData.security) message += `Security: ${formData.security}\n`;
-            message += `\nWINES:\n`;
+            // Create message for WhatsApp
+            let message = `🍷 *WINE ORDER - ${formData.location}*\n`;
+            message += `*Date:* ${formData.date}\n\n`;
+            message += `*Customer:* ${formData.name}\n`;
+            message += `*Phone:* ${formData.phone}\n`;
+            message += `*Email:* ${formData.email}\n`;
+            message += `*Address:* ${formData.address}\n`;
+            if (formData.addressDesc) message += `*Description:* ${formData.addressDesc}\n`;
+            message += `*Town:* ${formData.town}\n`;
+            if (formData.security) message += `*Security:* ${formData.security}\n`;
+            message += `\n*WINES:*\n`;
             formData.wines.forEach(wine => {
-                message += `${wine.name} x${wine.quantity} = ${wine.subtotal}\n`;
+                message += `• ${wine.name} x${wine.quantity} = ${wine.subtotal}\n`;
             });
-            message += `\nSubtotal: ${formData.subtotal}\n`;
-            message += `10% OFF: ${formData.discount}\n`;
-            message += `TOTAL: ${formData.total}`;
+            message += `\n*Subtotal:* ${formData.subtotal}\n`;
+            message += `*10% OFF:* ${formData.discount}\n`;
+            message += `*TOTAL:* ${formData.total}`;
             
-            const phoneNumber = '+19173284445'; // Cindy Lamb's number
+            // Encode message for WhatsApp
+            const encodedMessage = encodeURIComponent(message);
+            const phoneNumber = '19173284445'; // Cindy Lamb's number
             
-            // Show confirmation with option to call or copy
-            if (confirm('Order ready to submit!\n\nTotal: ' + formData.total + '\n\nClick OK to call Cindy Lamb, or Cancel to copy order details.')) {
-                window.location.href = `tel:${phoneNumber}`;
-            } else {
-                // Copy to clipboard
-                navigator.clipboard.writeText(message).then(() => {
-                    alert('Order details copied to clipboard! You can now paste and send via your preferred method.');
-                }).catch(() => {
-                    alert('Order Details:\n\n' + message);
-                });
-            }
+            // Open WhatsApp with pre-filled message
+            window.location.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
         });
         
         // Initial calculation
