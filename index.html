@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Tasting Order Form - Mouton Noir</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #333;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .logo-text {
+            text-align: left;
+        }
+        
+        .logo-decorative {
+            color: #c9a961;
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .logo-main {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 3em;
+            color: #2c2c2c;
+            font-weight: bold;
+            font-style: italic;
+        }
+        
+        .logo-subtitle {
+            color: #c9a961;
+            font-size: 1.2em;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+        
+        .sheep-icon {
+            font-size: 4em;
+        }
+        
+        .title {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #2c2c2c;
+        }
+        
+        .location-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .location-info p {
+            margin: 5px 0;
+            color: #333;
+        }
+        
+        .date-fixed {
+            font-weight: bold;
+        }
+        
+        .form-section {
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            display: flex;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .form-group label {
+            width: 180px;
+            font-weight: bold;
+            color: #2c2c2c;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #333;
+            border-radius: 0;
+            font-size: 14px;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        
+        .wine-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .wine-table th {
+            background: white;
+            color: #2c2c2c;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #333;
+        }
+        
+        .wine-table td {
+            padding: 8px;
+            border: 2px solid #333;
+            text-align: center;
+        }
+        
+        .wine-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        .qty-input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #333;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .totals-section {
+            margin: 20px 0;
+            text-align: right;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: flex-end;
+            padding: 8px 0;
+            font-size: 1em;
+        }
+        
+        .total-row label {
+            width: 150px;
+            text-align: right;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        
+        .total-row span {
+            width: 100px;
+            text-align: left;
+            padding: 5px 10px;
+            border: 2px solid #333;
+            background: white;
+        }
+        
+        .payment-info {
+            margin: 30px 0;
+        }
+        
+        .payment-info h3 {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c2c2c;
+        }
+        
+        .payment-option {
+            margin: 8px 0;
+            display: flex;
+        }
+        
+        .payment-option strong {
+            width: 180px;
+            color: #2c2c2c;
+        }
+        
+        .email-note {
+            margin-top: 15px;
+            font-style: italic;
+            color: #555;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+        
+        .contact-info {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #333;
+        }
+        
+        .contact-info p {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        
+        .thank-you {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .logo-main {
+                font-size: 2em;
+            }
+            
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .form-group label {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+            
+            .wine-table {
+                font-size: 12px;
+            }
+            
+            .payment-option {
+                flex-direction: column;
+            }
+            
+            .payment-option strong {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <div class="logo-text">
+                    <div class="logo-decorative">☘️</div>
+                    <div class="logo-main">Mouton Noir</div>
+                    <div class="logo-subtitle">WINE GROUP</div>
+                </div>
+                <div class="sheep-icon">🐑</div>
+            </div>
+            <div class="title">WINE TASTING ORDER FORM</div>
+        </div>
+        
+        <div class="location-info">
+            <p><strong>Location:</strong> DEBORAH NORRIS</p>
+            <p class="date-fixed"><strong>Date: Jan 19/26</strong></p>
+        </div>
+        
+        <form id="orderForm">
+            <div class="form-section">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Delivery Address:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label>Address Description:</label>
+                    <textarea id="addressDesc" name="addressDesc"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Town:</label>
+                    <input type="text" id="town" name="town" required>
+                </div>
+                <div class="form-group">
+                    <label>Security Guard:</label>
+                    <input type="text" id="security" name="security">
+                </div>
+            </div>
+            
+            <table class="wine-table">
+                <thead>
+                    <tr>
+                        <th>Wine</th>
+                        <th>Unit Price</th>
+                        <th>Qty</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="wineTable">
+                    <tr data-price="20.00">
+                        <td>Lagarde Rose</td>
+                        <td>$ 20.00</td>
+                        <td><input type="number" class="qty-input" min="0" value="0" data-wine="Lagarde Rose"></td>
+                        <td class="subtotal-cell">$ -</td>
+                    </tr>
+                    <tr data-price="18.00">
+                        <td>Altavista Sauvignon Blanc</td>
+                        <td>$ 18.00</td>
+                        <td><input type="number" class="qty-input" min="0" value="0" data-wine="Altavista Sauvignon Blanc"></td>
+                        <td class="subtotal-cell">$ -</td>
+                    </tr>
+                    <tr data-price="26.50">
+                        <td>Paco Y Lola Albarino</td>
+                        <td>$ 26.50</td>
+                        <td><input type="number" class="qty-input" min="0" value="0" data-wine="Paco Y Lola Albarino"></td>
+                        <td class="subtotal-cell">$ -</td>
+                    </tr>
+                    <tr data-price="27.00">
+                        <td>Salentien Reserve Chardonnay</td>
+                        <td>$ 27.00</td>
+                        <td><input type="number" class="qty-input" min="0" value="0" data-wine="Salentien Reserve Chardonnay"></td>
+                        <td class="subtotal-cell">$ -</td>
+                    </tr>
+                    <tr data-price="16.00">
+                        <td>Newen Pinot Noir</td>
+                        <td>$ 16.00</td>
+                        <td><input type="number" class="qty-input" min="0" value="0" data-wine="Newen Pinot Noir"></td>
+                        <td class="subtotal-cell">$ -</td>
+                    </tr>
+                    <tr data-price="19.50">
+                        <td>Tomero Malbec</td>
+                        <td>$ 19.50</td>
+                        <td><input type="number" class="qty-input" min="0" value="0" data-wine="Tomero Malbec"></td>
+                        <td class="subtotal-cell">$ -</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="totals-section">
+                <div class="total-row">
+                    <label>Subtotal</label>
+                    <span id="subtotal">$ -</span>
+                </div>
+                <div class="total-row">
+                    <label>10% OFF</label>
+                    <span id="discount">$ -</span>
+                </div>
+                <div class="total-row">
+                    <label>Total</label>
+                    <span id="total">$ -</span>
+                </div>
+            </div>
+            
+            <div class="payment-info">
+                <h3>Payment Options:</h3>
+                <div class="payment-option">
+                    <strong>Company:</strong>
+                    <span>Distribuidora E Importador Sabores Argentinos S.A. CTA #909798654</span>
+                </div>
+                <div class="payment-option">
+                    <strong>SINPE:</strong>
+                    <span>8365-8812</span>
+                </div>
+                <div class="payment-option">
+                    <strong>Zelle:</strong>
+                    <span>917-328-4445</span>
+                </div>
+                <div class="payment-option">
+                    <strong>USD IBAN (Scotia):</strong>
+                    <span>CR15 0123 0002 5010 2449 81</span>
+                </div>
+                <div class="payment-option">
+                    <strong>CRC IBAN (BCR):</strong>
+                    <span>CR25 0102 0000 9097 9865 47</span>
+                </div>
+                <p class="email-note">
+                    Please add our email to bank transfers: <strong>MoutonNoirWine@gmail.com</strong>
+                </p>
+            </div>
+            
+            <button type="submit" class="submit-btn">📱 Send Order via WhatsApp</button>
+        </form>
+        
+        <div class="contact-info">
+            <p>Wine rep: Cindy Lamb +1-917-328-4445 / +506-8792-4130</p>
+        </div>
+        
+        <div class="thank-you">Thank you!</div>
+    </div>
+    
+    <script>
+        // Calculate totals
+        function calculateTotals() {
+            let subtotal = 0;
+            
+            document.querySelectorAll('#wineTable tr').forEach(row => {
+                const price = parseFloat(row.dataset.price);
+                const qtyInput = row.querySelector('.qty-input');
+                const qty = parseInt(qtyInput.value) || 0;
+                const itemSubtotal = price * qty;
+                
+                if (qty > 0) {
+                    row.querySelector('.subtotal-cell').textContent = '$ ' + itemSubtotal.toFixed(2);
+                } else {
+                    row.querySelector('.subtotal-cell').textContent = '$ -';
+                }
+                subtotal += itemSubtotal;
+            });
+            
+            const discount = subtotal * 0.10;
+            const total = subtotal - discount;
+            
+            document.getElementById('subtotal').textContent = subtotal > 0 ? '$ ' + subtotal.toFixed(2) : '$ -';
+            document.getElementById('discount').textContent = discount > 0 ? '$ ' + discount.toFixed(2) : '$ -';
+            document.getElementById('total').textContent = total > 0 ? '$ ' + total.toFixed(2) : '$ -';
+        }
+        
+        // Add event listeners to all quantity inputs
+        document.querySelectorAll('.qty-input').forEach(input => {
+            input.addEventListener('input', calculateTotals);
+        });
+        
+        // Handle form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect order data
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                addressDesc: document.getElementById('addressDesc').value,
+                town: document.getElementById('town').value,
+                security: document.getElementById('security').value,
+                wines: [],
+                subtotal: document.getElementById('subtotal').textContent,
+                discount: document.getElementById('discount').textContent,
+                total: document.getElementById('total').textContent,
+                date: 'Jan 19/26',
+                location: 'DEBORAH NORRIS'
+            };
+            
+            // Collect wine orders
+            document.querySelectorAll('.qty-input').forEach(input => {
+                const qty = parseInt(input.value) || 0;
+                if (qty > 0) {
+                    const row = input.closest('tr');
+                    formData.wines.push({
+                        name: input.dataset.wine,
+                        price: row.dataset.price,
+                        quantity: qty,
+                        subtotal: row.querySelector('.subtotal-cell').textContent
+                    });
+                }
+            });
+            
+            // Check if any wines were ordered
+            if (formData.wines.length === 0) {
+                alert('Please select at least one wine to order.');
+                return;
+            }
+            
+            // Create message for WhatsApp
+            let message = `🍷 *WINE ORDER - ${formData.location}*\n`;
+            message += `*Date:* ${formData.date}\n\n`;
+            message += `*Customer:* ${formData.name}\n`;
+            message += `*Phone:* ${formData.phone}\n`;
+            message += `*Email:* ${formData.email}\n`;
+            message += `*Address:* ${formData.address}\n`;
+            if (formData.addressDesc) message += `*Description:* ${formData.addressDesc}\n`;
+            message += `*Town:* ${formData.town}\n`;
+            if (formData.security) message += `*Security:* ${formData.security}\n`;
+            message += `\n*WINES:*\n`;
+            formData.wines.forEach(wine => {
+                message += `• ${wine.name} x${wine.quantity} = ${wine.subtotal}\n`;
+            });
+            message += `\n*Subtotal:* ${formData.subtotal}\n`;
+            message += `*10% OFF:* ${formData.discount}\n`;
+            message += `*TOTAL:* ${formData.total}`;
+            
+            // Encode message for WhatsApp
+            const encodedMessage = encodeURIComponent(message);
+            const phoneNumber = '19173284445'; // Cindy Lamb's number
+            
+            // Open WhatsApp with pre-filled message
+            window.location.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+        });
+        
+        // Initial calculation
+        calculateTotals();
+    </script>
+</body>
+</html>
