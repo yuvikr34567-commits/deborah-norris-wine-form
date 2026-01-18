@@ -290,7 +290,7 @@
         
         <div class="location-info">
             <p><strong>Location:</strong> DEBORAH NORRIS</p>
-            <p class="date-fixed"><strong>Date:</strong> Jan 19/26</p>
+            <p class="date-fixed"><strong>Date:</strong> <input type="text" id="orderDate" placeholder="dd-mm-yyyy" style="display: inline-block; width: 150px; padding: 5px; border: 2px solid #8b7355; border-radius: 5px;" required></p>
         </div>
         
         <form id="orderForm">
@@ -428,6 +428,24 @@
     </div>
     
     <script>
+        // Validate and format date input
+        function validateDate(input) {
+            let value = input.replace(/[^\d]/g, '');
+            
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '-' + value.slice(2);
+            }
+            if (value.length >= 5) {
+                value = value.slice(0, 5) + '-' + value.slice(5, 9);
+            }
+            
+            return value;
+        }
+        
+        document.getElementById('orderDate').addEventListener('input', function(e) {
+            e.target.value = validateDate(e.target.value);
+        });
+        
         // Calculate totals
         function calculateTotals() {
             let subtotal = 0;
@@ -459,6 +477,13 @@
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            const orderDate = document.getElementById('orderDate').value;
+            
+            if (!orderDate || orderDate.length < 10) {
+                alert('Please enter a valid date in dd-mm-yyyy format.');
+                return;
+            }
+            
             // Collect order data
             const formData = {
                 name: document.getElementById('name').value,
@@ -472,7 +497,7 @@
                 subtotal: document.getElementById('subtotal').textContent,
                 discount: document.getElementById('discount').textContent,
                 total: document.getElementById('total').textContent,
-                date: 'Jan 19/26'
+                date: orderDate
             };
             
             // Collect wine orders
