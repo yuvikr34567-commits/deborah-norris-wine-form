@@ -38,37 +38,48 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 30px;
             margin-bottom: 20px;
         }
         
         .logo-text {
-            text-align: left;
+            text-align: center;
+            position: relative;
         }
         
         .logo-decorative {
             color: #c9a961;
-            font-size: 2em;
-            font-weight: bold;
+            font-size: 2.5em;
+            margin-bottom: -10px;
+        }
+        
+        .decorative-swirl {
+            color: #c9a961;
+            font-size: 3em;
+            letter-spacing: -5px;
         }
         
         .logo-main {
-            font-family: 'Brush Script MT', cursive;
-            font-size: 3em;
+            font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+            font-size: 3.5em;
             color: #2c2c2c;
             font-weight: bold;
             font-style: italic;
+            line-height: 0.9;
+            margin: 10px 0;
         }
         
         .logo-subtitle {
             color: #c9a961;
-            font-size: 1.2em;
-            letter-spacing: 3px;
-            font-weight: bold;
+            font-size: 1.3em;
+            letter-spacing: 8px;
+            font-weight: normal;
+            margin-top: 5px;
         }
         
         .sheep-icon {
-            font-size: 4em;
+            font-size: 5em;
+            filter: grayscale(100%);
         }
         
         .title {
@@ -256,7 +267,12 @@
             }
             
             .logo-main {
-                font-size: 2em;
+                font-size: 2.5em;
+            }
+            
+            .logo-container {
+                flex-direction: column;
+                gap: 10px;
             }
             
             .form-group {
@@ -289,11 +305,12 @@
         <div class="header">
             <div class="logo-container">
                 <div class="logo-text">
-                    <div class="logo-decorative">☘️</div>
+                    <div class="logo-decorative">🌿</div>
+                    <div class="decorative-swirl">〰〰〰〰〰〰</div>
                     <div class="logo-main">Mouton Noir</div>
                     <div class="logo-subtitle">WINE GROUP</div>
                 </div>
-                <div class="sheep-icon">🐑</div>
+                <div class="sheep-icon">🐑🍷</div>
             </div>
             <div class="title">WINE TASTING ORDER FORM</div>
         </div>
@@ -426,7 +443,7 @@
                 </p>
             </div>
             
-            <button type="submit" class="submit-btn">📱 Send Order via WhatsApp</button>
+            <button type="submit" class="submit-btn">📱 Contact via Phone</button>
         </form>
         
         <div class="contact-info">
@@ -509,30 +526,37 @@
                 return;
             }
             
-            // Create message for WhatsApp
-            let message = `🍷 *WINE ORDER - ${formData.location}*\n`;
-            message += `*Date:* ${formData.date}\n\n`;
-            message += `*Customer:* ${formData.name}\n`;
-            message += `*Phone:* ${formData.phone}\n`;
-            message += `*Email:* ${formData.email}\n`;
-            message += `*Address:* ${formData.address}\n`;
-            if (formData.addressDesc) message += `*Description:* ${formData.addressDesc}\n`;
-            message += `*Town:* ${formData.town}\n`;
-            if (formData.security) message += `*Security:* ${formData.security}\n`;
-            message += `\n*WINES:*\n`;
+            // Create message for phone contact
+            let message = `WINE ORDER - ${formData.location}\n`;
+            message += `Date: ${formData.date}\n\n`;
+            message += `Customer: ${formData.name}\n`;
+            message += `Phone: ${formData.phone}\n`;
+            message += `Email: ${formData.email}\n`;
+            message += `Address: ${formData.address}\n`;
+            if (formData.addressDesc) message += `Description: ${formData.addressDesc}\n`;
+            message += `Town: ${formData.town}\n`;
+            if (formData.security) message += `Security: ${formData.security}\n`;
+            message += `\nWINES:\n`;
             formData.wines.forEach(wine => {
-                message += `• ${wine.name} x${wine.quantity} = ${wine.subtotal}\n`;
+                message += `${wine.name} x${wine.quantity} = ${wine.subtotal}\n`;
             });
-            message += `\n*Subtotal:* ${formData.subtotal}\n`;
-            message += `*10% OFF:* ${formData.discount}\n`;
-            message += `*TOTAL:* ${formData.total}`;
+            message += `\nSubtotal: ${formData.subtotal}\n`;
+            message += `10% OFF: ${formData.discount}\n`;
+            message += `TOTAL: ${formData.total}`;
             
-            // Encode message for WhatsApp
-            const encodedMessage = encodeURIComponent(message);
-            const phoneNumber = '19173284445'; // Cindy Lamb's number
+            const phoneNumber = '+19173284445'; // Cindy Lamb's number
             
-            // Open WhatsApp with pre-filled message
-            window.location.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            // Show confirmation with option to call or copy
+            if (confirm('Order ready to submit!\n\nTotal: ' + formData.total + '\n\nClick OK to call Cindy Lamb, or Cancel to copy order details.')) {
+                window.location.href = `tel:${phoneNumber}`;
+            } else {
+                // Copy to clipboard
+                navigator.clipboard.writeText(message).then(() => {
+                    alert('Order details copied to clipboard! You can now paste and send via your preferred method.');
+                }).catch(() => {
+                    alert('Order Details:\n\n' + message);
+                });
+            }
         });
         
         // Initial calculation
